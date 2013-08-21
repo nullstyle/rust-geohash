@@ -3,6 +3,7 @@ use self::interval::Interval;
 pub mod base32;
 mod interval;
 mod decode;
+mod encode;
  
 pub struct Geohash {
   lat: Interval,
@@ -15,5 +16,9 @@ impl Geohash {
 
   pub fn decode(hash:&str) -> Option<Geohash> {
     self::decode::decode(hash)
+  }
+
+  pub fn encode(location:(f64,f64), precision:u8) -> ~str {
+    self::encode::encode(location, precision)
   }
 }
