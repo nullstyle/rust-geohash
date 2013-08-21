@@ -37,8 +37,8 @@ pub fn decode(ch:char) -> Option<u8> {
   }
 }
 
-pub fn encode(in:u8) -> Option<char> {
-  match in {
+pub fn encode(val:u8) -> Option<char> {
+  match val {
     0   => Some('0'),
     1   => Some('1'),
     2   => Some('2'),
