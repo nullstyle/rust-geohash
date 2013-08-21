@@ -10,8 +10,8 @@ static MAX_LAT: f64 = 90.0;
 static MAX_LON: f64 = 180.0;
 
 pub fn decode(hash:&str) -> Option<Geohash> {
-  let mut lat = Interval(-MAX_LAT, MAX_LAT);
-  let mut lon = Interval(-MAX_LON, MAX_LON);
+  let mut lat = Interval{ lo:-MAX_LAT, hi:MAX_LAT };
+  let mut lon = Interval{ lo:-MAX_LON, hi:MAX_LON };
   let mut is_odd = true;
 
 
