@@ -20,8 +20,12 @@ pub fn decode(hash:&str) -> Option<Geohash> {
   let mut lat = Interval(-MAX_LAT, MAX_LAT);
   let mut lon = Interval(-MAX_LON, MAX_LON);
   let mut is_odd = true;
-  //TODO: implement an iterator over the packed bits
 
+
+  // TODO: implement an iterator over the packed bits, which would
+  // return a stream of bools. should simplify the algorthm when I learn 
+  // how to do write it :)
+  //
   for ch in hash.iter() {
     match base32::decode(ch) {
       None => return None,
