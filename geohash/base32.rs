@@ -1,0 +1,38 @@
+pub fn decode_char(ch:char) -> Option<u8> {
+  match ch {
+    '0' => Some(0),
+    '1' => Some(1),
+    '2' => Some(2),
+    '3' => Some(3),
+    '4' => Some(4),
+    '5' => Some(5),
+    '6' => Some(6),
+    '7' => Some(7),
+    '8' => Some(8),
+    '9' => Some(9),
+
+    'b' => Some(10),
+    'c' => Some(11),
+    'd' => Some(12),
+    'e' => Some(13),
+    'f' => Some(14),
+    'g' => Some(15),
+    'h' => Some(16),
+    'j' => Some(17),
+    'k' => Some(18),
+    'm' => Some(19),
+    'n' => Some(20),
+    'p' => Some(21),
+    'q' => Some(22),
+    'r' => Some(23),
+    's' => Some(24),
+    't' => Some(25),
+    'u' => Some(26),
+    'v' => Some(27),
+    'w' => Some(28),
+    'x' => Some(29),
+    'y' => Some(30),
+    'z' => Some(31),
+    _   => None
+  }
+}
