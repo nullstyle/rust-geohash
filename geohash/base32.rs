@@ -1,4 +1,4 @@
-pub fn decode(ch:char) -> Option<u8> {
+pub fn decode_u8(ch:char) -> Option<u8> {
   match ch {
     '0' => Some(0),
     '1' => Some(1),
@@ -34,6 +34,19 @@ pub fn decode(ch:char) -> Option<u8> {
     'y' => Some(30),
     'z' => Some(31),
     _   => None
+  }
+}
+
+pub fn decode_tuple(ch:char) -> Option<(bool, bool, bool, bool, bool)> {
+  match decode_u8(ch) {
+    None     => None,
+    Some(ch) => Some((
+                is_bit_set(ch, BIT5),
+                is_bit_set(ch, BIT4),
+                is_bit_set(ch, BIT3),
+                is_bit_set(ch, BIT2),
+                is_bit_set(ch, BIT1)
+                ))
   }
 }
 
@@ -75,4 +88,13 @@ pub fn encode(val:u8) -> Option<char> {
   }
 }
 
+static BIT1: u8 = 1 << 0;
+static BIT2: u8 = 1 << 1;
+static BIT3: u8 = 1 << 2;
+static BIT4: u8 = 1 << 3;
+static BIT5: u8 = 1 << 4;
 
+
+fn is_bit_set(byte:u8, position:u8) -> bool {
+  (byte & position) > 0
+}

@@ -9,13 +9,6 @@ use geohash::base32;
 static MAX_LAT: f64 = 90.0;
 static MAX_LON: f64 = 180.0;
 
-static BIT1: u8 = 1 << 0;
-static BIT2: u8 = 1 << 1;
-static BIT3: u8 = 1 << 2;
-static BIT4: u8 = 1 << 3;
-static BIT5: u8 = 1 << 4;
-
-
 pub fn decode(hash:&str) -> Option<Geohash> {
   let mut lat = Interval(-MAX_LAT, MAX_LAT);
   let mut lon = Interval(-MAX_LON, MAX_LON);
@@ -27,22 +20,22 @@ pub fn decode(hash:&str) -> Option<Geohash> {
   // how to do write it :)
   //
   for ch in hash.iter() {
-    match base32::decode(ch) {
+    match base32::decode_tuple(ch) {
       None => return None,
-      Some(i) => {
+      Some((b5,b4,b3,b2,b1)) => {
         // work on the lon
         if (is_odd) {
-          lon = contract_interval(lon, is_bit_set(i, BIT5));
-          lat = contract_interval(lat, is_bit_set(i, BIT4));
-          lon = contract_interval(lon, is_bit_set(i, BIT3));
-          lat = contract_interval(lat, is_bit_set(i, BIT2));
-          lon = contract_interval(lon, is_bit_set(i, BIT1));
+          lon = contract_interval(lon, b5);
+          lat = contract_interval(lat, b4);
+          lon = contract_interval(lon, b3);
+          lat = contract_interval(lat, b2);
+          lon = contract_interval(lon, b1);
         } else {
-          lat = contract_interval(lat, is_bit_set(i, BIT5));
-          lon = contract_interval(lon, is_bit_set(i, BIT4));
-          lat = contract_interval(lat, is_bit_set(i, BIT3));
-          lon = contract_interval(lon, is_bit_set(i, BIT2));
-          lat = contract_interval(lat, is_bit_set(i, BIT1));
+          lat = contract_interval(lat, b5);
+          lon = contract_interval(lon, b4);
+          lat = contract_interval(lat, b3);
+          lon = contract_interval(lon, b2);
+          lat = contract_interval(lat, b1);
         }
       },
     }
@@ -51,11 +44,6 @@ pub fn decode(hash:&str) -> Option<Geohash> {
 
   Some(Geohash{ lat:lat, lon:lon })
 }
-
-fn is_bit_set(byte:u8, position:u8) -> bool {
-  (byte & position) > 0
-}
-
 
 #[test]
 fn test_decode_good() {
