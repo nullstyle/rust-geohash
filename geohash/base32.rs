@@ -1,4 +1,4 @@
-pub fn decode_char(ch:char) -> Option<u8> {
+pub fn decode(ch:char) -> Option<u8> {
   match ch {
     '0' => Some(0),
     '1' => Some(1),

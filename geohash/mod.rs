@@ -1,6 +1,6 @@
 use self::interval::Interval;
 
-mod base32;
+pub mod base32;
 mod interval;
 mod decode;
  

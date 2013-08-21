@@ -1,7 +1,7 @@
-use geohash::base32::decode_char;
 use geohash::interval::Interval;
 use geohash::interval::contract_interval;
 use geohash::Geohash;
+use geohash::base32;
 
 //
 // constants
@@ -23,7 +23,7 @@ pub fn decode(hash:&str) -> Option<Geohash> {
   //TODO: implement an iterator over the packed bits
 
   for ch in hash.iter() {
-    match decode_char(ch) {
+    match base32::decode(ch) {
       None => return None,
       Some(i) => {
         // work on the lon
