@@ -36,3 +36,43 @@ pub fn decode(ch:char) -> Option<u8> {
     _   => None
   }
 }
+
+pub fn encode(in:u8) -> Option<char> {
+  match in {
+    0   => Some('0'),
+    1   => Some('1'),
+    2   => Some('2'),
+    3   => Some('3'),
+    4   => Some('4'),
+    5   => Some('5'),
+    6   => Some('6'),
+    7   => Some('7'),
+    8   => Some('8'),
+    9   => Some('9'),
+    10  => Some('b'),
+    11  => Some('c'),
+    12  => Some('d'),
+    13  => Some('e'),
+    14  => Some('f'),
+    15  => Some('g'),
+    16  => Some('h'),
+    17  => Some('j'),
+    18  => Some('k'),
+    19  => Some('m'),
+    20  => Some('n'),
+    21  => Some('p'),
+    22  => Some('q'),
+    23  => Some('r'),
+    24  => Some('s'),
+    25  => Some('t'),
+    26  => Some('u'),
+    27  => Some('v'),
+    28  => Some('w'),
+    29  => Some('x'),
+    30  => Some('y'),
+    31  => Some('z'),
+    _   => None
+  }
+}
+
+
