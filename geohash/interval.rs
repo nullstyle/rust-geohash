@@ -18,9 +18,6 @@ impl Interval {
   pub fn high(&self) -> f64 {
     self.hi
   }
-
-  pub fn upper_half(&self) -> Interval { Interval{ lo:self.median(), hi:self.hi } }
-  pub fn lower_half(&self) -> Interval { Interval{ lo:self.lo, hi:self.median() } }
 }
 
 pub fn contract_interval(interval:&mut Interval, contract_hi:bool) {
