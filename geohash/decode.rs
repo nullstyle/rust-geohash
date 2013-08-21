@@ -25,17 +25,17 @@ pub fn decode(hash:&str) -> Option<Geohash> {
       Some((b5,b4,b3,b2,b1)) => {
         // work on the lon
         if (is_odd) {
-          lon = contract_interval(lon, b5);
-          lat = contract_interval(lat, b4);
-          lon = contract_interval(lon, b3);
-          lat = contract_interval(lat, b2);
-          lon = contract_interval(lon, b1);
+          contract_interval(&mut lon, b5);
+          contract_interval(&mut lat, b4);
+          contract_interval(&mut lon, b3);
+          contract_interval(&mut lat, b2);
+          contract_interval(&mut lon, b1);
         } else {
-          lat = contract_interval(lat, b5);
-          lon = contract_interval(lon, b4);
-          lat = contract_interval(lat, b3);
-          lon = contract_interval(lon, b2);
-          lat = contract_interval(lat, b1);
+          contract_interval(&mut lat, b5);
+          contract_interval(&mut lon, b4);
+          contract_interval(&mut lat, b3);
+          contract_interval(&mut lon, b2);
+          contract_interval(&mut lat, b1);
         }
       },
     }

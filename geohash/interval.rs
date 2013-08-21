@@ -23,10 +23,10 @@ impl Interval {
   pub fn lower_half(&self) -> Interval { Interval{ lo:self.lo, hi:self.median() } }
 }
 
-pub fn contract_interval(interval:Interval, contract_hi:bool) -> Interval {
+pub fn contract_interval(interval:&mut Interval, contract_hi:bool) {
   if (contract_hi) {
-    interval.upper_half()
+    interval.lo = interval.median();
   } else {
-    interval.lower_half()
+    interval.hi = interval.median();
   }
 }
