@@ -103,11 +103,12 @@ pub fn encode(val:u8) -> Option<char> {
   }
 }
 
-static BIT1: u8 = 1 << 0;
-static BIT2: u8 = 1 << 1;
-static BIT3: u8 = 1 << 2;
-static BIT4: u8 = 1 << 3;
-static BIT5: u8 = 1 << 4;
+
+static BIT1: u8 = 0b00000001;
+static BIT2: u8 = 0b00000010;
+static BIT3: u8 = 0b00000100;
+static BIT4: u8 = 0b00001000;
+static BIT5: u8 = 0b00010000;
 
 
 fn is_bit_set(byte:u8, position:u8) -> bool {
