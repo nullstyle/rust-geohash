@@ -13,11 +13,11 @@ pub fn encode(lat:f64, lon:f64, precision:uint) -> ~str {
 
   for i in range(0, bit_count) {
     if i.is_even() {
-      let is_higher = lon > ilon.median();
+      let is_higher = lon >= ilon.median();
       bits.push(is_higher);
       ilon.contract(if is_higher {UpperHalf} else {LowerHalf});
     } else {
-      let is_higher = lat > ilat.median();
+      let is_higher = lat >= ilat.median();
       bits.push(is_higher);
       ilat.contract(if is_higher {UpperHalf} else {LowerHalf});
     }
@@ -40,4 +40,6 @@ fn test_encode_good() {
   assert!( Geohash::encode(lat, lon, 4)  == ~"u4pr" );
   assert!( Geohash::encode(lat, lon, 6)  == ~"u4pruy" );
   assert!( Geohash::encode(lat, lon, 8)  == ~"u4pruydq" );
+  assert!( Geohash::encode(lat, lon, 10) == ~"u4pruydqqv" );
+  assert!( Geohash::encode(lat, lon, 11) == ~"u4pruydqqvj" );
 }
