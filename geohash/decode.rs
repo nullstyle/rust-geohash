@@ -11,8 +11,6 @@ static MAX_LON: f64 = 180.0;
 pub fn decode(hash:&str) -> Option<Geohash> {
   let mut lat      = Interval{ lo:-MAX_LAT, hi:MAX_LAT };
   let mut lon      = Interval{ lo:-MAX_LON, hi:MAX_LON };
-  let contract_lat = |op| { lat.contract(op) };
-  let contract_lon = |op| { lon.contract(op) };
 
   let mut bits : ~[bool] = ~[];
   // TODO: implement an iterator over the packed bits, which would
@@ -29,11 +27,8 @@ pub fn decode(hash:&str) -> Option<Geohash> {
   let ops = bits.map(|&bit| if bit {UpperHalf} else {LowerHalf} );
 
   for (i, &op) in ops.iter().enumerate() {
-    if i.is_even() {
-      contract_lon(op)
-    } else {
-      contract_lat(op)
-    }
+    let comp = if i.is_even() {&mut lon} else {&mut lat};
+    comp.contract(op);
   }
 
   Some(Geohash{ lat:lat, lon:lon })
