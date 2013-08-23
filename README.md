@@ -18,29 +18,12 @@ These are the areas of the codebase where my ignorance of rust has made for what
 
 ### Base32 decoding
 
-Currently, when decoding a geohash the code in geohash::decode::decode does the following:
-
-1. Iterate over each character in the hash string
-2. Decode each character to a 5-bool tuple
-3. Apply each bit (clumsily) to the working intervals, contracting them as necessary
-
-Instead, I would much rather present an interface that goes directly from a string of base32 encoded characters to a stream of bits.  That is the following would be valid:
+Currently, the base32 module only operates on single characters, but I would rather it could work on both characters and strings such that both the following statements work:
 
 ```rust
-  let hash = ~"zzzz"
-  for bit in base32::decode_bits(hash) {
-    // `bit` above is a bool
-    // ... do work here ...
-  }
+let bits_from_char = base32.decode_vec('u');
+let bits_from_vec  = base32.decode_vec("uuu");
 ```
-
-Given something like the above, I think you could write the decode algorithm as:
-
-1. get the decoded bits iterator
-2. create an iterator that returns lon then lat a infinite cycle
-3. zip the two iterators from above together
-4. iterate the zipped stream, contracting the geo component appropriately if the bit is set
-
 
 ## Contributing
 
