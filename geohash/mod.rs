@@ -18,7 +18,7 @@ impl Geohash {
     self::decode::decode(hash)
   }
 
-  pub fn encode(location:(f64,f64), precision:u8) -> ~str {
-    self::encode::encode(location, precision)
+  pub fn encode(lat:f64, lon:f64, precision:uint) -> ~str {
+    self::encode::encode(lat, lon, precision)
   }
 }
