@@ -1,12 +1,5 @@
 use geohash::interval::*;
-use geohash::Geohash;
-use geohash::base32;
-
-//
-// constants
-// 
-static MAX_LAT: f64 = 90.0;
-static MAX_LON: f64 = 180.0;
+use geohash::*;
 
 pub fn decode(hash:&str) -> Option<Geohash> {
   let mut lat      = Interval{ lo:-MAX_LAT, hi:MAX_LAT };

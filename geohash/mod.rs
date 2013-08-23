@@ -22,3 +22,7 @@ impl Geohash {
     self::encode::encode(lat, lon, precision)
   }
 }
+
+
+pub static MAX_LAT: f64 = 90.0;
+pub static MAX_LON: f64 = 180.0;

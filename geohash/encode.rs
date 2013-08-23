@@ -1,10 +1,7 @@
 use geohash::interval::*;
-use geohash::Geohash;
-use geohash::base32;
+use geohash::*;
 use std::str;
 
-static MAX_LAT: f64 = 90.0;
-static MAX_LON: f64 = 180.0;
 
 pub fn encode(lat:f64, lon:f64, precision:uint) -> ~str {
   let mut ilat = Interval{ lo:-MAX_LAT, hi:MAX_LAT };
