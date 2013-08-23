@@ -1,5 +1,4 @@
-use geohash::interval::Interval;
-use geohash::interval::contract_interval;
+use geohash::interval::*;
 use geohash::Geohash;
 use geohash::base32;
 
@@ -10,37 +9,32 @@ static MAX_LAT: f64 = 90.0;
 static MAX_LON: f64 = 180.0;
 
 pub fn decode(hash:&str) -> Option<Geohash> {
-  let mut lat = Interval{ lo:-MAX_LAT, hi:MAX_LAT };
-  let mut lon = Interval{ lo:-MAX_LON, hi:MAX_LON };
-  let mut is_odd = true;
+  let mut lat      = Interval{ lo:-MAX_LAT, hi:MAX_LAT };
+  let mut lon      = Interval{ lo:-MAX_LON, hi:MAX_LON };
+  let contract_lat = |op| { lat.contract(op) };
+  let contract_lon = |op| { lon.contract(op) };
 
-
+  let mut bits : ~[bool] = ~[];
   // TODO: implement an iterator over the packed bits, which would
   // return a stream of bools. should simplify the algorthm when I learn 
   // how to do write it :)
   //
   for ch in hash.iter() {
-    match base32::decode_tuple(ch) {
+    match base32::decode_vec(ch) {
       None => return None,
-      Some((b5,b4,b3,b2,b1)) => {
-        // work on the lon
-        if (is_odd) {
-          contract_interval(&mut lon, b5);
-          contract_interval(&mut lat, b4);
-          contract_interval(&mut lon, b3);
-          contract_interval(&mut lat, b2);
-          contract_interval(&mut lon, b1);
-        } else {
-          contract_interval(&mut lat, b5);
-          contract_interval(&mut lon, b4);
-          contract_interval(&mut lat, b3);
-          contract_interval(&mut lon, b2);
-          contract_interval(&mut lat, b1);
-        }
-      },
+      Some(char_bits) => { bits.push_all(char_bits) },
     }
-    is_odd = !is_odd;
   };
+
+  let ops = bits.map(|&bit| if bit {UpperHalf} else {LowerHalf} );
+
+  for (i, &op) in ops.iter().enumerate() {
+    if i.is_even() {
+      contract_lon(op)
+    } else {
+      contract_lat(op)
+    }
+  }
 
   Some(Geohash{ lat:lat, lon:lon })
 }

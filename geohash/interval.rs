@@ -3,6 +3,11 @@ pub struct Interval {
   hi: f64,
 }
 
+pub enum IntervalContraction {
+  UpperHalf,
+  LowerHalf,
+}
+
 impl Interval {
   pub fn median(&self) -> f64 {
     let half = (self.hi - self.lo) / 2.0;
@@ -18,12 +23,11 @@ impl Interval {
   pub fn high(&self) -> f64 {
     self.hi
   }
-}
 
-pub fn contract_interval(interval:&mut Interval, contract_hi:bool) {
-  if (contract_hi) {
-    interval.lo = interval.median();
-  } else {
-    interval.hi = interval.median();
+  pub fn contract(&mut self, base: IntervalContraction) {
+    match base {
+      UpperHalf => { self.lo = self.median() },
+      LowerHalf => { self.hi = self.median() },
+    }
   }
 }

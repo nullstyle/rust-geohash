@@ -50,6 +50,21 @@ pub fn decode_tuple(ch:char) -> Option<(bool, bool, bool, bool, bool)> {
   }
 }
 
+
+pub fn decode_vec(ch:char) -> Option<~[bool]> {
+  let decoded_u8 : Option<u8> = decode_u8(ch);
+  match decoded_u8 {
+    None     => None,
+    Some(ch) => Some(~[
+                is_bit_set(ch, BIT5),
+                is_bit_set(ch, BIT4),
+                is_bit_set(ch, BIT3),
+                is_bit_set(ch, BIT2),
+                is_bit_set(ch, BIT1)
+                ])
+  }
+}
+
 pub fn encode(val:u8) -> Option<char> {
   match val {
     0   => Some('0'),
