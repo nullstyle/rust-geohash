@@ -65,7 +65,7 @@ pub fn decode_vec(ch:char) -> Option<~[bool]> {
   }
 }
 
-pub fn encode(val:u8) -> Option<char> {
+pub fn encode_u8(val:u8) -> Option<char> {
   match val {
     0   => Some('0'),
     1   => Some('1'),
@@ -103,6 +103,16 @@ pub fn encode(val:u8) -> Option<char> {
   }
 }
 
+pub fn encode_vec(val:&[bool]) -> Option<char> {
+  let mut result : u8 = 0b00000000;
+  if val[0] { result |= BIT5 }
+  if val[1] { result |= BIT4 }
+  if val[2] { result |= BIT3 }
+  if val[3] { result |= BIT2 }
+  if val[4] { result |= BIT1 }
+
+  encode_u8(result)
+}
 
 static BIT1: u8 = 0b00000001;
 static BIT2: u8 = 0b00000010;
