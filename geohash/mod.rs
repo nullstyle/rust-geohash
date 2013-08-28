@@ -1,9 +1,9 @@
 use self::interval::Interval;
 
 pub mod base32;
-mod interval;
-mod decode;
-mod encode;
+pub mod interval;
+pub mod decode;
+pub mod encode;
  
 pub struct Geohash {
   lat: Interval,

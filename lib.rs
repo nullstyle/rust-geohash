@@ -3,4 +3,5 @@
        author = "nullstyle")];
 #[crate_type = "lib"];
 
+pub use geohash::Geohash;
 pub mod geohash;
